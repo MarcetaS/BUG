@@ -1,0 +1,115 @@
+[gd_scene load_steps=6 format=3 uid="uid://klusp06snoj4"]
+
+[ext_resource type="PackedScene" uid="uid://c11bmk402nvi1" path="res://scenes/barrel.tscn" id="2_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://bbcqsrdcnw2fr" path="res://PlayerCharacter.tscn" id="2_feb5d"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e2o6t"]
+sky_horizon_color = Color(0.654404, 0.675687, 0.700652, 1)
+ground_bottom_color = Color(0.162003, 0.178135, 0.181997, 1)
+ground_horizon_color = Color(0.654404, 0.675687, 0.700652, 1)
+
+[sub_resource type="Sky" id="Sky_feb5d"]
+sky_material = SubResource("ProceduralSkyMaterial_e2o6t")
+
+[sub_resource type="Environment" id="Environment_fc0e3"]
+background_mode = 2
+sky = SubResource("Sky_feb5d")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fc0e3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.276307, -0.724745, 0.631188, 0.100568, 0.674954, 0.730974, -0.955793, -0.138496, 0.259381, 0, 23.8861, -0.0208588)
+shadow_enabled = true
+
+[node name="ground" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.7, 0, 0, 0, 1, 0, 0.0877396, -0.35)
+use_collision = true
+size = Vector3(120.7, 0.503223, 90.3)
+
+[node name="Slope" type="CSGBox3D" parent="."]
+transform = Transform3D(0.894934, -0.758536, 0, 0.446198, 1.52139, 0, 0, 0, 1, 17.6549, 5.80779, 7.99144)
+use_collision = true
+size = Vector3(25.5869, 0.503223, 6.00684)
+
+[node name="Archwall" type="CSGBox3D" parent="."]
+transform = Transform3D(0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, 0.939693, -35.3513, 10.05, -24.941)
+use_collision = true
+size = Vector3(7.7, 19.9, 0.7)
+
+[node name="arch" type="CSGCylinder3D" parent="Archwall"]
+transform = Transform3D(1.06553, -0.0218945, -0.133274, -0.026688, 0.0154691, -5.24505, 0.0247805, 0.958126, 0.0816399, 0.0632648, -9.99637, 0.036974)
+operation = 2
+radius = 1.4
+height = 1.45
+sides = 20
+
+[node name="Gebaeude" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="wall_entrance" type="CSGBox3D" parent="Gebaeude"]
+transform = Transform3D(5.96046e-08, 0, -1.0342, 0, 0.59136, 0, 1.09397, 0, 0, 20.6487, 5.89374, 22.2195)
+use_collision = true
+size = Vector3(17.5, 19.5, 0.7)
+
+[node name="entrance_doorway" type="CSGBox3D" parent="Gebaeude/wall_entrance"]
+transform = Transform3D(1, 0, 0, 0, 2.8, 0, 0, 0, 1, -3.15795, -6.35509, 0)
+operation = 2
+size = Vector3(2.4, 2.5, 1)
+
+[node name="entrance_window" type="CSGBox3D" parent="Gebaeude/wall_entrance"]
+transform = Transform3D(1, 0, 0, 0, 7.84, 0, -4.26326e-14, 0, 1, 2.89384, 0.439463, -1.90735e-06)
+operation = 2
+size = Vector3(7.8, 0.8, 1)
+
+[node name="wall_leftentrance" type="CSGBox3D" parent="Gebaeude"]
+transform = Transform3D(-1.13139, 0, -6.16432e-08, 0, 0.804325, 0, 6.52057e-08, 0, -1.13139, 24.713, 5.76227, 13.0481)
+use_collision = true
+size = Vector3(7.7, 14.6, 0.7)
+
+[node name="wall_rightentrance" type="CSGBox3D" parent="Gebaeude"]
+transform = Transform3D(-1.13139, 0, 9.89088e-08, 0, 0.804325, 0, -9.89088e-08, 0, -1.13139, 27.0358, 5.77434, 31.3707)
+use_collision = true
+size = Vector3(10.9222, 14.63, 0.74)
+
+[node name="wall_leftaddition" type="CSGBox3D" parent="Gebaeude"]
+transform = Transform3D(-2.0944e-07, 0, 1.40804, 0, 1.31329, 0, -1.34403, 0, -2.19414e-07, 29.5131, 5.87897, 8.27569)
+use_collision = true
+size = Vector3(7.7, 8.8, 0.7)
+
+[node name="wall_back" type="CSGBox3D" parent="Gebaeude"]
+transform = Transform3D(-1.4497, 0, 1.21644, 0, 1.72472, 0, -1.21644, 0, -1.4497, 42.2555, 5.78364, 13.3833)
+use_collision = true
+size = Vector3(17.7, 6.81, 0.7)
+
+[node name="wall_rounded" type="CSGCylinder3D" parent="Gebaeude"]
+transform = Transform3D(6.07042, 0, 1.1338, 0, 1, 0, -2.20945, 0, 3.11508, 40.82, 5.51375, 31.8)
+radius = 2.7
+height = 12.3175
+sides = 64
+
+[node name="rounded_hollow" type="CSGCylinder3D" parent="Gebaeude/wall_rounded"]
+transform = Transform3D(7.35169, 0, 3.57628e-07, 0, 0.8, 0, 4.00543e-05, 0, 9.59969, -0.0282183, 0.722063, -0.511229)
+operation = 2
+radius = 0.31
+height = 15.6623
+sides = 64
+
+[node name="Barrel1" parent="." instance=ExtResource("2_e2o6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.4533, 0.670057, 27.4912)
+
+[node name="Barrel2" parent="." instance=ExtResource("2_e2o6t")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.6, 17.4345, 0.515479, 29.714)
+
+[node name="Barrel3" parent="." instance=ExtResource("2_e2o6t")]
+transform = Transform3D(0.5, 0, 0, 0, 0.7, 0, 0, 0, 0.6, 16.537, 0.013792, 32.2625)
+
+[node name="Barrel4" parent="." instance=ExtResource("2_e2o6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.4863, 1.65797, 27.4912)
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("2_feb5d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.23336, 1.51548, 10.5145)
